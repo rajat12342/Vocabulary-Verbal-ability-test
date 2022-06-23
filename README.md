@@ -20,5 +20,49 @@ vocabData = pd.read_csv('VocabTest.csv')
 
 print(VocabData.head())
 
+![image](https://user-images.githubusercontent.com/76405713/175430845-c3f59c7b-ff60-4016-aa3f-1e0a562b6b36.png)
 
-![image](https://user-images.githubusercontent.com/76405713/175430455-7629f4f9-6781-4202-a20c-353e645bdfd8.png)
+
+Check for missing values:
+
+print(vocabData.isnull().sum())
+
+![image](https://user-images.githubusercontent.com/76405713/175430894-37a29093-61e0-4535-b399-234f27030eba.png)
+
+No missing values found.
+
+Checking the distribution of total scores variable and summary statistics:
+
+print(vocabData['Score'].describe())
+
+![image](https://user-images.githubusercontent.com/76405713/175431095-e8cb6614-b9dd-4626-a8d8-194ebf42aa0f.png)
+
+The scores are slightly right skewed as evident by the mean being higher than the median. This is expected since the data is not from a representative sample.
+
+sns.histplot(data = vocabData, x='Score')
+plt.show()
+
+![image](https://user-images.githubusercontent.com/76405713/175431606-d4e27fde-a59e-46f9-9f43-bb2559c81199.png)
+
+Using kde plot:
+
+sns.kdeplot(data = vocabData, x='Score', shade=True)
+plt.show()
+
+![image](https://user-images.githubusercontent.com/76405713/175431829-4074758b-f3ee-4b60-b4ea-271e51b11c27.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
