@@ -17,6 +17,7 @@ Initial observations:
 Data was loaded into python: 
 
 vocabData = pd.read_csv('VocabTest.csv')
+
 print(VocabData.head())
 
 
