@@ -18,4 +18,6 @@ Data was loaded into python:
 
 vocabData = pd.read_csv('VocabTest.csv')
 print(VocabData.head())
+
+
 ![image](https://user-images.githubusercontent.com/76405713/175430455-7629f4f9-6781-4202-a20c-353e645bdfd8.png)
