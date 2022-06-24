@@ -69,6 +69,83 @@ In psychometrics, this higher order factor is called the "g-factor". g is short 
 
 
 
+Load the dataset into R:
+
+vocabData <- read.csv(file.choose(),sep=',')
+
+![image](https://user-images.githubusercontent.com/76405713/175438562-76622250-59a6-414c-99f8-611cc31fecf9.png)
+
+
+The score column needs to be dropped to do factor analyze the matrix.
+
+library(dplyr)
+
+select(vocabData, -c(Score))
+
+Before factor analysis, the reliability of the test needs to be known. The most common way to do this is by computing the Cronbach's alpha coefficient. High values for cronbach's alpha indicate the test items are reliable and measuring something valid.
+
+vocabData <- select(vocabData,-c(Score))
+
+cronbach.alpha(vocabData)
+
+![image](https://user-images.githubusercontent.com/76405713/175440609-488e2cdc-1fcf-4ae9-9c5a-a012e9fd19c0.png)
+
+The coefficient of 0.837 indicates very good reliability.
+
+
+Next, a principal component analysis needs to be done to analyze the number of different factors that explain the performance on the test items.
+
+We can do this using the in-built function princomp
+
+vocabData.pca <- princomp(vocabData)
+
+summary(vocabData.pca)
+
+
+![image](https://user-images.githubusercontent.com/76405713/175440830-a2032051-9b6d-4026-ad55-2a8e113db9a2.png)
+
+As it can be seen, the first component explains around 47% of the variance with subsequent factors explaining much less.
+This can be seen easily through a plot.
+
+plot(vocabData.pca)
+
+
+![image](https://user-images.githubusercontent.com/76405713/175440973-34526ad0-5daf-430c-8116-9b1cdbb156b8.png)
+
+
+This means that there is one factor which explains most of the variance in performance. As mentioned earlier, this is the result we would expect and this factor is most likely the g factor.
+This needs to be confirmed through confirmatory factor analysis.
+
+We can do this through the in built R function factanal.
+
+
+vocabData.fa1 <- factanal(vocabData, factors=1)
+vocabData.fa1
+
+![image](https://user-images.githubusercontent.com/76405713/175441397-9ef92fc7-f44b-4915-89cb-e9e67530a0ab.png)
+
+
+This gives the factor loadings of each question and conducts a hypothesis test with the null hypothesis being that one factor is sufficient. In this case, the p-value barely indicates evidence against the null hypothesis with a significance level of 5%. We would reject the null hypothesis that there is only one factor.
+
+If we try CFA with 2 factors:
+
+
+vocabData.fa2 <- factanal(vocabData, factors=2)
+
+vocabData.fa2
+
+![image](https://user-images.githubusercontent.com/76405713/175442402-049036ca-e9d7-4b66-b09b-ada8202ed0a7.png)
+
+
+The p-value in this case is not statistically significant. In this case, we would not reject the null hypothesis that 2 factors are sufficient. 
+
+As it can be seen, even though the PCA indicated there is one factor explaining most of the variance in test performance between individuals, the CFA failed to confirm that. 
+
+I do believe the test to be significantly g loaded. The reason the analyses failed to confirm this is likely due to the small sample size and skewed sample data.
+
+This analysis will be updated once the data is sufficient.
+
+
 
 
 
