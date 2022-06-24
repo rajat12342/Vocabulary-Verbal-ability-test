@@ -51,6 +51,29 @@ plt.show()
 
 ![image](https://user-images.githubusercontent.com/76405713/175431829-4074758b-f3ee-4b60-b4ea-271e51b11c27.png)
 
+Pearson's coefficient of skewness was 0.123, confirming a slight right skew.
+print(scipy.stats.skew(vocabData['Score']))
+
+
+If the score column is dropped, the a heatmap with the correlations between scores on different questions can be devised.
+
+vocabData = vocabData.drop('Score', axis=1)
+
+sns.heatmap(vocabData.corr(), annot= True)
+
+![image](https://user-images.githubusercontent.com/76405713/175436398-72ef7426-9a61-4065-b3c4-dcf112fd1d23.png)
+
+Performance on most test items is positively correlated with performance on most other items. This is an indication that there is a higher order factor that can explain most of the variance in performance that exists between individuals. 
+
+In psychometrics, this higher order factor is called the "g-factor". g is short for general intelligence and it is this factor which explains most of the differences in performance between individuals on various cognitive tasks. This factor is extracted using methods such as principal component analysis and confirmatory factor analysis. Vocabulary tests tend to load strongly on g and are a good measure of the g factor. Past research has shown that g loadings of items administered to high ability individuals tends to be lower than if those same items were given to a representative sample. However, I will still try to calculate the g loadings of the various test items in R.
+
+
+
+
+
+
+
+
 
 
 
